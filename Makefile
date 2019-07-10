@@ -12,6 +12,10 @@ update:
 	docker-compose run -w /opt/api/functions api \
 		npm install -g firebase-tools
 
+babel-build:
+	docker-compose run -w /opt/api/functions api \
+		npm run babel-build
+
 fb:
 	docker-compose run api firebase $(ARGS)
 
@@ -50,3 +54,7 @@ beautify:
 installpkg:
 	 docker-compose run -w /opt/api/functions api \
 		 npm install $(ARGS) $(PKGS)
+
+uninstallpkg:
+	 docker-compose run -w /opt/api/functions api \
+		 npm uninstall $(PKGS)
