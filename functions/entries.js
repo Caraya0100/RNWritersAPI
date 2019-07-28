@@ -66,14 +66,21 @@ module.exports.delete = async (req, res) => {
     res.json({ id: req.params.id });
 }
 
-/*
-exports.addMessage = async (req, res) => {
-    const original = data.text;
-    const writeResult = await admin.firestore().collection('messages').add({original: original});
-    res.json({result: `EXPRESS!!!! Message with ID: ${writeResult.id} added.`});
-}
+module.exports.getUserEntries = async (req, res) => {
+    const entriesRef = await db.collection(collections.keys.entries);
+    let docs = await entriesRef.where('uid', '==', req.params.id).get();
 
-exports.helloWorld = async (req, res) => {
-    res.json({result: `SOME MESSAGE HERE!!!!.`});
+    if (docs.empty) {
+        res.json({});
+    } else {
+        const entries = [];
+
+        docs.forEach(doc => {
+            const data = doc.data();
+            data.id = doc.id;
+            entries.push(data);
+        });
+
+        res.json(entries);
+    }
 }
-*/

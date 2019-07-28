@@ -18,6 +18,7 @@ app.get('/entry/:id', entries.get);
 app.get('/entries', entries.getAll);
 app.put('/update/entry/:id', entries.update);
 app.delete('/delete/entry/:id', entries.delete);
+app.get('/entries/user/:id', entries.getUserEntries);
 app.post('/add/user', users.add);
 app.get('/user/:id', users.get);
 app.get('/users', users.getAll);
