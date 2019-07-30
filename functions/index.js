@@ -2,6 +2,7 @@
 
 const functions = require('firebase-functions');
 const express = require('express');
+const graphqlHTTP = require('express-graphql');
 const cors = require('cors')({origin: true});
 const cookieParser = require('cookie-parser')();
 const app = express();
@@ -10,6 +11,13 @@ admin.initializeApp();
 
 const entries = require('./entries');
 const users = require('./users');
+const gql = require('./graphql');
+  
+app.use('/graphql', graphqlHTTP({
+    schema: gql.schema,
+    rootValue: gql.root,
+    graphiql: false,
+}));
 
 app.use(cors);
 app.use(cookieParser);
